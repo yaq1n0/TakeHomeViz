@@ -1,14 +1,12 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
-import {
-  getCountries,
-  getAllCitiesOfCountry,
-  type ICountry,
-  type ICity,
-} from '@countrystatecity/countries-browser';
 import type { RegionId } from '@takehomeviz/engine';
 import { regionFromLocation } from '../lib/regionFromLocation';
 import type { Location } from '../schemas';
+import countriesData from '../data/countries.json';
+
+type ICountry = { iso2: string; name: string; emoji: string };
+type ICity = { id: string; name: string; state_code: string };
 
 const props = defineProps<{ location: Location | undefined }>();
 const emit = defineEmits<{
@@ -17,25 +15,18 @@ const emit = defineEmits<{
 
 const MAX_RESULTS = 50;
 
-let countriesPromise: Promise<ICountry[]> | null = null;
-function loadCountries(): Promise<ICountry[]> {
-  if (!countriesPromise) countriesPromise = getCountries();
-  return countriesPromise;
-}
+const ALL_COUNTRIES: ICountry[] = countriesData as ICountry[];
+
 const cityCache = new Map<string, Promise<ICity[]>>();
 function loadCities(countryCode: string): Promise<ICity[]> {
   const existing = cityCache.get(countryCode);
   if (existing) return existing;
-  // @countrystatecity/countries-browser@1.0.0 ships a states list per country
-  // but is missing the corresponding per-subdivision city JSON files for some
-  // countries (e.g. GB), so getAllCitiesOfCountry rejects with 404s. Swallow
-  // those and degrade to an empty list rather than bubbling up.
-  const p = getAllCitiesOfCountry(countryCode).catch(() => [] as ICity[]);
+  const p = import(`../data/cities/${countryCode}.json`).then((m) => m.default as ICity[]);
   cityCache.set(countryCode, p);
   return p;
 }
 
-const countries = ref<ICountry[]>([]);
+const countries = ref<ICountry[]>(ALL_COUNTRIES);
 const cities = ref<ICity[]>([]);
 const citiesLoading = ref(false);
 
@@ -69,10 +60,6 @@ watch(
   },
   { immediate: true },
 );
-
-loadCountries().then((list) => {
-  countries.value = list;
-});
 
 // Debounced query updates — mirror the 150ms pattern used elsewhere.
 const debouncedCountryQuery = ref('');

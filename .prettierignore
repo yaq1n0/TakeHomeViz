@@ -1,0 +1,4 @@
+node_modules
+dist
+packages/web/src/data/cities/*
+packages/web/src/data/countries.json

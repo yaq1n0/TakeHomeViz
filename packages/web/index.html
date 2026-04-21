@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="darkreader-lock" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TakeHomeViz — Multi-region take-home pay comparison</title>
+    <title>TakeHomeViz - Graph and compare spending money in different locations</title>
     <meta
       name="description"
       content="Compare take-home pay across UK and US regions side by side, with a spendable-vs-gross sweep graph."
@@ -21,8 +21,7 @@
           var stored = localStorage.getItem('theme');
           var isDark =
             stored === 'dark' ||
-            (stored !== 'light' &&
-              window.matchMedia('(prefers-color-scheme: dark)').matches);
+            (stored !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
           if (isDark) document.documentElement.classList.add('dark');
         } catch (_) {}
       })();

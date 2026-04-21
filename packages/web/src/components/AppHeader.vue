@@ -52,6 +52,7 @@ function setPrimary(c: Currency): void {
 
 <template>
   <header
+    data-testid="app-header"
     class="flex flex-wrap items-center justify-between gap-3 border-b border-neutral-200 px-4 py-3 md:px-6 dark:border-neutral-800"
   >
     <div class="flex items-baseline gap-3">
@@ -80,7 +81,7 @@ function setPrimary(c: Currency): void {
           </span>
         </button>
       </h1>
-      <span class="text-xs font-mono text-neutral-400 dark:text-neutral-500"
+      <span class="text-xs font-mono text-neutral-500 dark:text-neutral-400"
         >v0.1 · open source</span
       >
     </div>

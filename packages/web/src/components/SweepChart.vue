@@ -385,7 +385,7 @@ const symbol = computed(() => currencySymbol(store.displayCurrency));
           >
           <button
             type="button"
-            class="ml-0.5 text-neutral-400 transition-colors hover:text-neutral-700 disabled:opacity-40 disabled:hover:text-neutral-400 dark:text-neutral-500 dark:hover:text-neutral-200"
+            class="ml-0.5 text-neutral-500 transition-colors hover:text-neutral-700 disabled:opacity-40 disabled:hover:text-neutral-500 dark:text-neutral-400 dark:hover:text-neutral-200"
             :disabled="isAuto"
             title="Reset to auto"
             aria-label="Reset chart range to auto"

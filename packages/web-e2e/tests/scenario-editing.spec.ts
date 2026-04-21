@@ -1,5 +1,6 @@
 import { expect, test } from '@playwright/test';
 import { seed, ukScenario } from './fixtures';
+import { testIds } from './testids';
 
 test.describe('Scenario editing', () => {
   test('gross salary change updates breakdown values', async ({ page }) => {
@@ -13,7 +14,7 @@ test.describe('Scenario editing', () => {
     // Open detailed breakdown and assert "Gross" row reflects new value.
     await page.getByText('Detailed breakdown').click();
     // The gross row in the breakdown table should mention 80 (compact) or full.
-    await expect(page.getByRole('table')).toContainText(/80,?000|£80/);
+    await expect(page.getByTestId(testIds.breakdownTable)).toContainText(/80,?000|£80/);
   });
 
   test('region UK→US flips currency symbol and drops UK plan', async ({ page }) => {

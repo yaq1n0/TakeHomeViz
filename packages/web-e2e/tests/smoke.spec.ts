@@ -1,5 +1,6 @@
 import { expect, test } from '@playwright/test';
 import { collectConsoleErrors, seedDefault } from './fixtures';
+import { testIds } from './testids';
 
 test.describe('Smoke', () => {
   test('loads with header, chart canvas, and no console errors', async ({ page }) => {
@@ -7,7 +8,7 @@ test.describe('Smoke', () => {
     await seedDefault(page);
 
     // Header title visible.
-    await expect(page.getByRole('heading', { name: 'TakeHomeViz' })).toBeVisible();
+    await expect(page.getByTestId(testIds.appHeader)).toBeVisible();
 
     // Chart section heading rendered.
     await expect(

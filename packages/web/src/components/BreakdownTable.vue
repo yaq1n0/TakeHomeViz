@@ -37,7 +37,7 @@ const fixedAnnual = computed(() => {
   <div
     class="overflow-x-auto rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950"
   >
-    <table class="w-full text-sm">
+    <table data-testid="breakdown-table" class="w-full text-sm">
       <thead
         class="bg-neutral-50 dark:bg-neutral-900 text-left text-xs font-mono uppercase tracking-wider text-neutral-500 dark:text-neutral-400"
       >
@@ -63,7 +63,7 @@ const fixedAnnual = computed(() => {
           >
             {{ formatDisplay(breakdown.gross, store.fxConfig) }}
           </td>
-          <td class="px-3 py-2 text-right text-neutral-400 dark:text-neutral-500">—</td>
+          <td class="px-3 py-2 text-right text-neutral-500 dark:text-neutral-400">—</td>
           <td
             class="px-3 py-2 text-right tabular-nums font-mono text-neutral-500 dark:text-neutral-400"
           >
@@ -114,7 +114,7 @@ const fixedAnnual = computed(() => {
           >
             {{ formatPercent(breakdown.marginalRate) }}
           </td>
-          <td class="px-3 py-2 text-right text-neutral-400 dark:text-neutral-500">—</td>
+          <td class="px-3 py-2 text-right text-neutral-500 dark:text-neutral-400">—</td>
         </tr>
         <tr v-if="fixedAnnual">
           <td class="px-3 py-2 text-neutral-700 dark:text-neutral-200">Fixed costs (annual)</td>
@@ -129,8 +129,8 @@ const fixedAnnual = computed(() => {
           >
             {{ formatDisplay(fixedAnnual, store.fxConfig) }}
           </td>
-          <td class="px-3 py-2 text-right text-neutral-400 dark:text-neutral-500">—</td>
-          <td class="px-3 py-2 text-right text-neutral-400 dark:text-neutral-500">—</td>
+          <td class="px-3 py-2 text-right text-neutral-500 dark:text-neutral-400">—</td>
+          <td class="px-3 py-2 text-right text-neutral-500 dark:text-neutral-400">—</td>
         </tr>
         <tr
           class="bg-emerald-50 dark:bg-emerald-950/30 font-semibold text-emerald-900 dark:text-emerald-300"
@@ -142,8 +142,8 @@ const fixedAnnual = computed(() => {
           <td v-if="showDisplayCol" class="px-3 py-2 text-right tabular-nums font-mono">
             {{ formatDisplay(breakdown.spendable, store.fxConfig) }}
           </td>
-          <td class="px-3 py-2 text-right text-neutral-400 dark:text-neutral-500">—</td>
-          <td class="px-3 py-2 text-right text-neutral-400 dark:text-neutral-500">—</td>
+          <td class="px-3 py-2 text-right text-neutral-500 dark:text-neutral-400">—</td>
+          <td class="px-3 py-2 text-right text-neutral-500 dark:text-neutral-400">—</td>
         </tr>
       </tbody>
     </table>

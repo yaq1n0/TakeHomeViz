@@ -1,5 +1,6 @@
 import { expect, test } from '@playwright/test';
 import { seed, ukScenario } from './fixtures';
+import { testIds } from './testids';
 
 test.describe('Student loan plans', () => {
   test('enabling uk-plan-2 adds a student loan deduction', async ({ page }) => {
@@ -15,7 +16,7 @@ test.describe('Student loan plans', () => {
 
     // Detailed breakdown table has a row mentioning "student" (loan).
     await page.getByText('Detailed breakdown').click();
-    await expect(page.getByRole('table')).toContainText(/student/i);
+    await expect(page.getByTestId(testIds.breakdownTable)).toContainText(/student/i);
   });
 
   test('disabling plan removes deduction row', async ({ page }) => {

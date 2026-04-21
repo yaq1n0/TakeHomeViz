@@ -1,5 +1,6 @@
 import { expect, test } from '@playwright/test';
 import { seedDefault } from './fixtures';
+import { testIds } from './testids';
 
 test.describe('Theme', () => {
   test('toggling dark mode applies the dark class and persists across reload', async ({ page }) => {
@@ -15,7 +16,7 @@ test.describe('Theme', () => {
     );
 
     await page.reload();
-    await expect(page.getByRole('heading', { name: 'TakeHomeViz' })).toBeVisible();
+    await expect(page.getByTestId(testIds.appHeader)).toBeVisible();
 
     const afterReload = await page.evaluate(() =>
       document.documentElement.classList.contains('dark'),
@@ -30,7 +31,7 @@ test.describe('Theme', () => {
     await page.goto('/');
     await page.evaluate(() => window.localStorage.removeItem('takehomeviz:theme'));
     await page.reload();
-    await expect(page.getByRole('heading', { name: 'TakeHomeViz' })).toBeVisible();
+    await expect(page.getByTestId(testIds.appHeader)).toBeVisible();
 
     const isDark = await page.evaluate(() => document.documentElement.classList.contains('dark'));
     expect(isDark).toBe(true);

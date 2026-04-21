@@ -248,11 +248,11 @@ const effectiveTax = computed(() => {
         />
       </div>
       <div class="flex items-center gap-1 shrink-0">
-        <span v-if="isPrimary" class="text-xs font-mono text-emerald-600 mr-1">primary</span>
+        <span v-if="isPrimary" class="text-xs font-mono text-emerald-700 dark:text-emerald-400 mr-1">primary</span>
         <button
           v-if="store.scenarios.length > 1"
           type="button"
-          class="w-6 h-6 rounded hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-400 dark:text-neutral-500"
+          class="w-6 h-6 rounded hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-500 dark:text-neutral-400"
           :aria-label="`Remove scenario ${index + 1}`"
           title="remove"
           @click="store.removeScenario(index)"
@@ -301,7 +301,7 @@ const effectiveTax = computed(() => {
       <div
         class="mt-1 flex items-center gap-1 border border-neutral-200 dark:border-neutral-800 rounded-lg px-3 py-2 focus-within:border-neutral-400 dark:focus-within:border-neutral-600"
       >
-        <span class="text-neutral-400 dark:text-neutral-500 font-mono text-sm">{{
+        <span class="text-neutral-500 dark:text-neutral-400 font-mono text-sm">{{
           currencySymbol
         }}</span>
         <input
@@ -319,7 +319,7 @@ const effectiveTax = computed(() => {
         class="text-xs font-mono uppercase tracking-wider text-neutral-500 dark:text-neutral-400"
       >
         Conversion rate
-        <span class="text-neutral-400 dark:text-neutral-500 normal-case">
+        <span class="text-neutral-500 dark:text-neutral-400 normal-case">
           · {{ currencySymbol }}
           <FontAwesomeIcon icon="arrow-right" class="mx-0.5" />
           {{ displaySymbol }}
@@ -352,14 +352,14 @@ const effectiveTax = computed(() => {
           >
           <FontAwesomeIcon
             icon="chevron-down"
-            class="text-neutral-400 dark:text-neutral-500 text-xs transition-transform group-open:rotate-180"
+            class="text-neutral-500 dark:text-neutral-400 text-xs transition-transform group-open:rotate-180"
           />
         </summary>
         <div class="mt-2">
           <div class="flex items-center justify-end mb-2">
             <button
               type="button"
-              class="flex items-center gap-1 text-xs text-neutral-400 dark:text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-200"
+              class="flex items-center gap-1 text-xs text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-200"
               @click="addOpen = !addOpen"
             >
               <FontAwesomeIcon icon="plus" />
@@ -402,7 +402,7 @@ const effectiveTax = computed(() => {
                 />
                 <span
                   >Student loan
-                  <span v-if="!isUk" class="text-neutral-400 dark:text-neutral-500"
+                  <span v-if="!isUk" class="text-neutral-500 dark:text-neutral-400"
                     >(UK only)</span
                   ></span
                 >
@@ -440,7 +440,7 @@ const effectiveTax = computed(() => {
             </div>
             <div
               v-if="!scenario.loan && (scenario.pensionPct ?? 0) === 0"
-              class="text-xs text-neutral-400 dark:text-neutral-500 italic px-1"
+              class="text-xs text-neutral-500 dark:text-neutral-400 italic px-1"
             >
               None
             </div>
@@ -457,7 +457,7 @@ const effectiveTax = computed(() => {
           >
           <button
             type="button"
-            class="flex items-center gap-1 text-xs text-neutral-400 dark:text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-200"
+            class="flex items-center gap-1 text-xs text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-200"
             @click="addOpen = !addOpen"
           >
             <FontAwesomeIcon icon="plus" />
@@ -502,7 +502,7 @@ const effectiveTax = computed(() => {
               />
               <span
                 >Student loan
-                <span v-if="!isUk" class="text-neutral-400 dark:text-neutral-500"
+                <span v-if="!isUk" class="text-neutral-500 dark:text-neutral-400"
                   >(UK only)</span
                 ></span
               >
@@ -541,7 +541,7 @@ const effectiveTax = computed(() => {
           </div>
           <div
             v-if="!scenario.loan && (scenario.pensionPct ?? 0) === 0"
-            class="text-xs text-neutral-400 dark:text-neutral-500 italic px-1"
+            class="text-xs text-neutral-500 dark:text-neutral-400 italic px-1"
           >
             None
           </div>
@@ -561,14 +561,14 @@ const effectiveTax = computed(() => {
           >
           <FontAwesomeIcon
             icon="chevron-down"
-            class="text-neutral-400 dark:text-neutral-500 text-xs transition-transform group-open:rotate-180"
+            class="text-neutral-500 dark:text-neutral-400 text-xs transition-transform group-open:rotate-180"
           />
         </summary>
         <div class="mt-2">
           <div class="flex items-center justify-end mb-2">
             <button
               type="button"
-              class="flex items-center gap-1 text-xs text-neutral-400 dark:text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-200"
+              class="flex items-center gap-1 text-xs text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-200"
               @click="store.addExpense(index)"
             >
               <FontAwesomeIcon icon="plus" />
@@ -590,12 +590,13 @@ const effectiveTax = computed(() => {
               <div
                 class="flex items-center gap-1 border border-neutral-200 dark:border-neutral-800 rounded-md px-2.5 py-1.5 w-28 focus-within:border-neutral-400 dark:focus-within:border-neutral-600"
               >
-                <span class="text-neutral-400 dark:text-neutral-500 font-mono text-xs">{{
+                <span class="text-neutral-500 dark:text-neutral-400 font-mono text-xs">{{
                   currencySymbol
                 }}</span>
                 <input
                   class="flex-1 bg-transparent focus:outline-none tabular-nums font-mono text-sm text-right text-neutral-900 dark:text-neutral-100 min-w-0"
                   inputmode="decimal"
+                  :aria-label="`Monthly amount for ${exp.label || 'expense'}`"
                   :value="amountInputs[exp.id] ?? ''"
                   @input="(e) => onExpenseAmount(exp.id, e)"
                 />
@@ -621,7 +622,7 @@ const effectiveTax = computed(() => {
           >
           <button
             type="button"
-            class="flex items-center gap-1 text-xs text-neutral-400 dark:text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-200"
+            class="flex items-center gap-1 text-xs text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-200"
             @click="store.addExpense(index)"
           >
             <FontAwesomeIcon icon="plus" />
@@ -643,12 +644,13 @@ const effectiveTax = computed(() => {
             <div
               class="flex items-center gap-1 border border-neutral-200 dark:border-neutral-800 rounded-md px-2.5 py-1.5 w-28 focus-within:border-neutral-400 dark:focus-within:border-neutral-600"
             >
-              <span class="text-neutral-400 dark:text-neutral-500 font-mono text-xs">{{
+              <span class="text-neutral-500 dark:text-neutral-400 font-mono text-xs">{{
                 currencySymbol
               }}</span>
               <input
                 class="flex-1 bg-transparent focus:outline-none tabular-nums font-mono text-sm text-right text-neutral-900 dark:text-neutral-100 min-w-0"
                 inputmode="decimal"
+                :aria-label="`Monthly amount for ${exp.label || 'expense'}`"
                 :value="amountInputs[exp.id] ?? ''"
                 @input="(e) => onExpenseAmount(exp.id, e)"
               />
@@ -679,7 +681,7 @@ const effectiveTax = computed(() => {
           {{ takeHomePerMoNative
           }}<span
             v-if="!isPrimary"
-            class="text-xs font-normal text-neutral-400 dark:text-neutral-500"
+            class="text-xs font-normal text-neutral-500 dark:text-neutral-400"
           >
             · {{ takeHomePerMoDisplay }}</span
           >
@@ -690,18 +692,18 @@ const effectiveTax = computed(() => {
           class="text-xs font-mono uppercase tracking-wider text-neutral-500 dark:text-neutral-400"
           >After expenses</span
         >
-        <span class="tabular-nums font-mono text-xl font-bold text-emerald-600">
+        <span class="tabular-nums font-mono text-xl font-bold text-emerald-700 dark:text-emerald-400">
           {{ afterExpensesPerMoNative
-          }}<span v-if="!isPrimary" class="text-sm font-medium text-emerald-500/70">
+          }}<span v-if="!isPrimary" class="text-sm font-medium text-emerald-700 dark:text-emerald-400">
             · {{ afterExpensesPerMoDisplay }}</span
           >
         </span>
       </div>
       <div class="flex items-baseline justify-between pt-1">
-        <span class="text-[11px] font-mono text-neutral-400 dark:text-neutral-500"
+        <span class="text-[11px] font-mono text-neutral-500 dark:text-neutral-400"
           >Effective tax</span
         >
-        <span class="tabular-nums text-[11px] font-mono text-neutral-400 dark:text-neutral-500">{{
+        <span class="tabular-nums text-[11px] font-mono text-neutral-500 dark:text-neutral-400">{{
           effectiveTax
         }}</span>
       </div>

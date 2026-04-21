@@ -248,7 +248,9 @@ const effectiveTax = computed(() => {
         />
       </div>
       <div class="flex items-center gap-1 shrink-0">
-        <span v-if="isPrimary" class="text-xs font-mono text-emerald-700 dark:text-emerald-400 mr-1">primary</span>
+        <span v-if="isPrimary" class="text-xs font-mono text-emerald-700 dark:text-emerald-400 mr-1"
+          >primary</span
+        >
         <button
           v-if="store.scenarios.length > 1"
           type="button"
@@ -692,9 +694,14 @@ const effectiveTax = computed(() => {
           class="text-xs font-mono uppercase tracking-wider text-neutral-500 dark:text-neutral-400"
           >After expenses</span
         >
-        <span class="tabular-nums font-mono text-xl font-bold text-emerald-700 dark:text-emerald-400">
+        <span
+          class="tabular-nums font-mono text-xl font-bold text-emerald-700 dark:text-emerald-400"
+        >
           {{ afterExpensesPerMoNative
-          }}<span v-if="!isPrimary" class="text-sm font-medium text-emerald-700 dark:text-emerald-400">
+          }}<span
+            v-if="!isPrimary"
+            class="text-sm font-medium text-emerald-700 dark:text-emerald-400"
+          >
             · {{ afterExpensesPerMoDisplay }}</span
           >
         </span>

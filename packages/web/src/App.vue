@@ -53,9 +53,27 @@ onMounted(() => {
       </div>
 
       <footer
-        class="border-t border-neutral-200 px-6 py-4 text-center text-xs text-neutral-500 dark:border-neutral-800 dark:text-neutral-400"
+        class="flex flex-col items-center gap-1 border-t border-neutral-200 px-6 py-4 text-center text-xs text-neutral-500 dark:border-neutral-800 dark:text-neutral-400"
       >
-        MIT · engine is zero-dep TS · bands cited from official sources per region file
+        <p>All values are esimates and should be used as a guide only.</p>
+        <p class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
+          <a
+            href="https://github.com/yaq1n0/takehomeviz.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hover:text-neutral-700 hover:underline dark:hover:text-neutral-200"
+          >
+            <FontAwesomeIcon icon="code" class="mr-1" />Source
+          </a>
+          <a
+            href="https://yaqinhasan.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hover:text-neutral-700 hover:underline dark:hover:text-neutral-200"
+          >
+            <FontAwesomeIcon icon="envelope" class="mr-1" />Contact
+          </a>
+        </p>
       </footer>
     </div>
   </div>

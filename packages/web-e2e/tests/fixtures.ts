@@ -1,5 +1,7 @@
 import { expect, type Page } from '@playwright/test';
-import { compressToEncodedURIComponent } from 'lz-string';
+import LZString from 'lz-string';
+
+const { compressToEncodedURIComponent } = LZString;
 
 /**
  * A minimal shape mirror of `SerializedScenario` from `@takehomeviz/web`.

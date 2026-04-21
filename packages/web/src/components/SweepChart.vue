@@ -470,7 +470,7 @@ const symbol = computed(() => currencySymbol(store.displayCurrency));
         <h3 class="mb-1 text-center font-medium text-neutral-600 dark:text-neutral-300">
           Crossovers
         </h3>
-        <ul class="grid grid-cols-1 gap-1 sm:grid-cols-2 lg:grid-cols-3">
+        <ul class="flex flex-wrap justify-center gap-1">
           <li
             v-for="(c, i) in crossoverList"
             :key="i"

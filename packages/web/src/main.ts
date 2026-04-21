@@ -22,6 +22,7 @@ import {
   faEnvelope,
   faExpand,
   faCompress,
+  faGear,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
@@ -42,6 +43,7 @@ library.add(
   faEnvelope,
   faExpand,
   faCompress,
+  faGear,
 );
 
 initTheme();

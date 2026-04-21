@@ -13,6 +13,7 @@ import { useMediaQuery } from '../lib/useMediaQuery';
 import BreakdownTable from './BreakdownTable.vue';
 import LocationPicker from './LocationPicker.vue';
 import { numbeoUrlFor } from '../lib/numbeoUrl';
+import { xeUrlFor } from '../lib/xeUrl';
 import type { Location } from '../schemas';
 
 // Mobile vs. desktop split: below md we collapse Deductions/Expenses bodies
@@ -79,9 +80,20 @@ function onGross(e: Event): void {
 }
 
 // --- Name ---
-function onName(e: Event): void {
-  const v = (e.target as HTMLInputElement).value;
-  store.setScenarioName(props.index, v);
+const nameInput = ref<string>('');
+watch(
+  scenario,
+  (s) => {
+    if (!s) return;
+    nameInput.value = s.name ?? '';
+  },
+  { immediate: true },
+);
+function onNameInput(e: Event): void {
+  nameInput.value = (e.target as HTMLInputElement).value;
+}
+function onNameBlur(e: Event): void {
+  store.setScenarioName(props.index, (e.target as HTMLInputElement).value);
 }
 
 // --- Location ---
@@ -98,6 +110,12 @@ function onLocationSelect(e: {
 const numbeoUrl = computed(() => {
   const loc = scenario.value?.location;
   return loc ? numbeoUrlFor(loc) : '';
+});
+
+const xeUrl = computed(() => {
+  const s = scenario.value;
+  if (!s || s.currency === store.displayCurrency) return '';
+  return xeUrlFor(store.displayCurrency, s.currency, store.fx);
 });
 
 // --- Region / Year ---
@@ -250,22 +268,24 @@ const effectiveTax = computed(() => {
 </script>
 
 <template>
-  <section v-if="scenario && breakdown" class="p-5" :aria-label="`Scenario ${index + 1}`">
+  <section
+    v-if="scenario && breakdown"
+    class="p-5"
+    :class="{ 'bg-amber-50/50 dark:bg-amber-950/20': !isPrimary }"
+    :aria-label="`Scenario ${index + 1}`"
+  >
     <!-- Header: name + region badge + primary indicator + remove -->
     <div class="flex items-center justify-between mb-4">
       <div class="flex items-center gap-2 min-w-0">
         <input
           class="text-base font-semibold bg-transparent focus:outline-none focus:ring-1 focus:ring-neutral-300 dark:focus:ring-neutral-700 rounded px-1 -mx-1 min-w-0 text-neutral-900 dark:text-neutral-100"
-          :value="scenario.name ?? ''"
+          :value="nameInput"
           placeholder="Scenario name"
-          @input="onName"
-          @blur="onName"
+          @input="onNameInput"
+          @blur="onNameBlur"
         />
       </div>
       <div class="flex items-center gap-1 shrink-0">
-        <span v-if="isPrimary" class="text-xs font-mono text-emerald-700 dark:text-emerald-400 mr-1"
-          >primary</span
-        >
         <button
           type="button"
           class="w-6 h-6 rounded flex items-center justify-center hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-500 dark:text-neutral-400"
@@ -367,7 +387,7 @@ const effectiveTax = computed(() => {
         </span>
       </span>
       <div
-        class="mt-1 flex items-center gap-2 border border-neutral-200 dark:border-neutral-800 rounded-lg px-3 py-2 focus-within:border-neutral-400 dark:focus-within:border-neutral-600"
+        class="mt-1 flex items-center gap-2 border border-amber-300 dark:border-amber-600/60 bg-amber-100/50 dark:bg-amber-900/20 rounded-lg px-3 py-2 focus-within:border-amber-500 dark:focus-within:border-amber-500"
       >
         <input
           class="flex-1 bg-transparent focus:outline-none tabular-nums font-mono text-sm text-neutral-900 dark:text-neutral-100 min-w-0"
@@ -377,6 +397,16 @@ const effectiveTax = computed(() => {
         />
       </div>
     </label>
+    <a
+      v-if="xeUrl"
+      :href="xeUrl"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="mt-2 inline-flex items-center gap-1.5 text-xs text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-neutral-100"
+    >
+      <FontAwesomeIcon icon="arrow-up-right-from-square" class="text-[10px]" />
+      Live rate on XE
+    </a>
 
     <!-- Deductions -->
     <div class="mt-5">
@@ -403,8 +433,8 @@ const effectiveTax = computed(() => {
               class="flex items-center gap-1 text-xs text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-200"
               @click="addOpen = !addOpen"
             >
-              <FontAwesomeIcon icon="plus" />
-              <span>add</span>
+              <FontAwesomeIcon icon="gear" />
+              <span>configure</span>
             </button>
           </div>
           <div
@@ -501,8 +531,8 @@ const effectiveTax = computed(() => {
             class="flex items-center gap-1 text-xs text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-200"
             @click="addOpen = !addOpen"
           >
-            <FontAwesomeIcon icon="plus" />
-            <span>add</span>
+            <FontAwesomeIcon icon="gear" />
+            <span>configure</span>
           </button>
         </div>
 

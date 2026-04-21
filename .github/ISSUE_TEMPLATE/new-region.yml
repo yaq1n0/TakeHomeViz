@@ -1,0 +1,51 @@
+name: New region request
+description: Request support for a new country, state, or subnational region.
+title: "[region] Add <region name>"
+labels: ["new-region"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Adding a region is one new directory under `packages/engine/src/regions/`, a pipeline file, and band schedules. The contributor guide in the README walks through it.
+  - type: input
+    id: region-name
+    attributes:
+      label: Region name (human-readable)
+      placeholder: Scotland
+    validations:
+      required: true
+  - type: input
+    id: proposed-id
+    attributes:
+      label: Proposed `RegionId`
+      description: Lowercase, hyphenated. Format `<country>-<region>` for subnational, `<country>` for federal.
+      placeholder: uk-sct
+    validations:
+      required: true
+  - type: input
+    id: currency
+    attributes:
+      label: Currency
+      placeholder: GBP
+    validations:
+      required: true
+  - type: textarea
+    id: pipeline
+    attributes:
+      label: Deduction pipeline (in legal-precedence order)
+      description: |
+        List the deductions and the base each one operates on. Order matters — salary sacrifice reducing the base for income tax *and* NI is the canonical example of why.
+      placeholder: |
+        1. salary-sacrifice pension (reduces base for everything downstream)
+        2. Scottish income tax (different bands from rUK)
+        3. NI Class 1 (UK-wide)
+        4. student loan
+    validations:
+      required: true
+  - type: input
+    id: primary-source
+    attributes:
+      label: Primary source(s) for band data
+      description: Official authority URLs. Required for every band schedule in the PR.
+    validations:
+      required: true

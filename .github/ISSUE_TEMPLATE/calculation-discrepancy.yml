@@ -1,0 +1,51 @@
+name: Calculation discrepancy
+description: TakeHomeViz's output disagrees with an authoritative calculator or official worked example.
+title: "[calc] <region> <year>: discrepancy of <amount> at gross <amount>"
+labels: ["discrepancy", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Tax math has a single right answer per scenario — discrepancies are bugs. Please include enough detail that a reference test can be written from this issue.
+  - type: textarea
+    id: scenario
+    attributes:
+      label: Scenario (copy the share-link URL if possible)
+      description: Paste the full `https://takehomeviz.com/#s=...` URL, or describe region / year / gross / pension / loan / fixed costs.
+    validations:
+      required: true
+  - type: textarea
+    id: takehomeviz-output
+    attributes:
+      label: What TakeHomeViz shows
+      placeholder: |
+        - Income tax: £10,432
+        - NI: £4,281
+        - Net: £45,287
+    validations:
+      required: true
+  - type: textarea
+    id: reference-output
+    attributes:
+      label: What the reference source shows
+      description: Authoritative calculator, HMRC/IRS worked example, paystub, etc. Include the source URL.
+      placeholder: |
+        thesalarycalculator.co.uk: Income tax £10,430, NI £4,281, Net £45,289.
+        Source: <URL>
+    validations:
+      required: true
+  - type: input
+    id: delta
+    attributes:
+      label: Size of the discrepancy
+      placeholder: £2 on net — rounding, or genuine?
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity guess
+      options:
+        - Rounding / ≤ £10 — probably banker's-rounding edge case
+        - Small but structural — bands line up but a rate is off
+        - Large — a whole deduction is missing or doubled
+    validations:
+      required: true

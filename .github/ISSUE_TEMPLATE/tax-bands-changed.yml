@@ -1,0 +1,77 @@
+name: Tax bands changed
+description: A region's tax bands, rates, thresholds, or contribution schedules changed for a new tax year (or mid-year).
+title: "[bands] <region> <year>: <short description>"
+labels: ["tax-bands", "needs-verification"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this for things like: "UK income tax 2027/28 bands published", "California FTB updated 2027 brackets", "NI Class 1 primary threshold changed mid-year".
+
+        Every band update must cite the official authority. No guessing.
+  - type: input
+    id: region
+    attributes:
+      label: Region
+      description: The `RegionId` as used in the engine (e.g. `uk-eng`, `us-ca`).
+      placeholder: uk-eng
+    validations:
+      required: true
+  - type: input
+    id: tax-year
+    attributes:
+      label: Tax year
+      description: UK format `YYYY-YY`, US format `YYYY`.
+      placeholder: 2027-28
+    validations:
+      required: true
+  - type: dropdown
+    id: schedule-type
+    attributes:
+      label: Which schedule changed
+      options:
+        - Income tax
+        - National Insurance / FICA
+        - Student loan
+        - State income tax
+        - State disability insurance (SDI)
+        - Standard deduction
+        - Other (describe below)
+    validations:
+      required: true
+  - type: input
+    id: source-url
+    attributes:
+      label: Official source URL
+      description: gov.uk, irs.gov, ftb.ca.gov, tax.ny.gov, dor.wa.gov, etc. A primary source — not a secondary blog or calculator.
+      placeholder: https://www.gov.uk/income-tax-rates
+    validations:
+      required: true
+  - type: input
+    id: effective-from
+    attributes:
+      label: Effective-from date (ISO-8601)
+      placeholder: 2027-04-06
+    validations:
+      required: true
+  - type: textarea
+    id: changes
+    attributes:
+      label: What changed
+      description: |
+        Summarize the band/threshold/rate changes. If you have a worked example from the authority (e.g. an HMRC worked example or IRS Pub 15-T sample), paste the inputs and expected outputs — these become reference tests in the PR.
+      placeholder: |
+        - Personal allowance: £12,570 → £12,800
+        - Basic rate threshold: £50,270 → £50,400
+        - Worked example from HMRC: gross £60,000 → income tax £11,230.
+    validations:
+      required: true
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Before submitting
+      options:
+        - label: I linked a primary source (gov.uk / irs.gov / etc.), not a third-party calculator.
+          required: true
+        - label: I am willing to open the PR, or I am flagging this for someone else to pick up.
+          required: false

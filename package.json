@@ -1,0 +1,39 @@
+{
+  "name": "takehomeviz",
+  "private": true,
+  "version": "0.1.0",
+  "description": "TakeHomeViz - takehome pay calculator, visualizer and comparer — monorepo root",
+  "license": "MIT",
+  "packageManager": "pnpm@10.33.0",
+  "scripts": {
+    "dev": "pnpm --filter @takehomeviz/web dev",
+    "build": "pnpm --filter @takehomeviz/engine build && pnpm --filter @takehomeviz/web build",
+    "preview": "pnpm --filter @takehomeviz/web preview",
+    "test": "pnpm -r --if-present test",
+    "test:watch": "pnpm -r --if-present test:watch",
+    "test:coverage": "pnpm -r --if-present test:coverage",
+    "typecheck": "pnpm -r --if-present typecheck",
+    "lint": "pnpm -r --if-present lint",
+    "lint:fix": "pnpm -r --if-present lint:fix",
+    "fmt": "pnpm -r --if-present fmt",
+    "fmt:fix": "pnpm -r --if-present fmt:fix"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.2.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-vue": "^10.8.0",
+    "globals": "^15.14.0",
+    "lint-staged": "^16.4.0",
+    "prettier": "^3.8.3",
+    "simple-git-hooks": "^2.13.1",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.59.0",
+    "vue-eslint-parser": "^10.4.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  }
+}

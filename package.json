@@ -24,9 +24,7 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-vue": "^10.8.0",
     "globals": "^15.14.0",
-    "lint-staged": "^16.4.0",
     "prettier": "^3.8.3",
-    "simple-git-hooks": "^2.13.1",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.59.0",
     "vue-eslint-parser": "^10.4.0"

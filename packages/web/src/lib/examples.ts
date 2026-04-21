@@ -11,6 +11,7 @@ export const exampleScenarios: SerializedScenario[] = [
     grossMajor: 95_000,
     currency: 'GBP',
     name: 'London',
+    location: { countryCode: 'GB', countryName: 'United Kingdom', cityName: 'London' },
     pensionPct: 5,
     loan: { plan: 'uk-plan-2' },
     expenses: [
@@ -24,6 +25,7 @@ export const exampleScenarios: SerializedScenario[] = [
     grossMajor: 72_000,
     currency: 'GBP',
     name: 'Manchester',
+    location: { countryCode: 'GB', countryName: 'United Kingdom', cityName: 'Manchester' },
     pensionPct: 5,
     loan: { plan: 'uk-plan-2' },
     expenses: [
@@ -37,6 +39,7 @@ export const exampleScenarios: SerializedScenario[] = [
     grossMajor: 220_000,
     currency: 'USD',
     name: 'San Francisco',
+    location: { countryCode: 'US', countryName: 'United States', cityName: 'San Francisco' },
     pensionPct: 6,
     expenses: [
       { id: 'ex_sf_rent', label: 'Rent', monthlyMajor: 3_400 },

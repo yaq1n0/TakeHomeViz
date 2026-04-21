@@ -28,6 +28,13 @@ export const expenseSchema = z.object({
 
 export type Expense = z.infer<typeof expenseSchema>;
 
+export const locationSchema = z.object({
+  countryCode: z.string().length(2),
+  countryName: z.string().max(80),
+  cityName: z.string().max(80),
+});
+export type Location = z.infer<typeof locationSchema>;
+
 /**
  * Serialized scenario shape — numbers live as *major* units (pounds/dollars)
  * so a quick look at a shared URL is human-readable. Conversion to engine
@@ -39,6 +46,7 @@ export const serializedScenarioSchema = z.object({
   grossMajor: z.number().finite().nonnegative(),
   currency: currencySchema,
   name: z.string().max(60).optional(),
+  location: locationSchema.optional(),
   pensionPct: z.number().min(0).max(100).optional(),
   loan: z
     .object({

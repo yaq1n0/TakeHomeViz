@@ -11,6 +11,9 @@ import { useScenariosStore } from '../stores/scenarios';
 import { formatDisplay, formatNumber } from '../lib/format';
 import { useMediaQuery } from '../lib/useMediaQuery';
 import BreakdownTable from './BreakdownTable.vue';
+import LocationPicker from './LocationPicker.vue';
+import { numbeoUrlFor } from '../lib/numbeoUrl';
+import type { Location } from '../schemas';
 
 // Mobile vs. desktop split: below md we collapse Deductions/Expenses bodies
 // inside native <details open> blocks (mockup lines 493-523). At md+ we render
@@ -47,10 +50,6 @@ const isUk = computed(() => scenario.value?.regionId.startsWith('uk-') ?? false)
 
 const isPrimary = computed(() => scenario.value?.currency === store.displayCurrency);
 
-const regionLabel = computed(
-  () => regions.find((r) => r.id === scenario.value?.regionId)?.label ?? '',
-);
-
 const currencySymbol = computed<string>(() => (scenario.value?.currency === 'USD' ? '$' : '£'));
 const displaySymbol = computed<string>(() => (store.displayCurrency === 'USD' ? '$' : '£'));
 
@@ -84,6 +83,22 @@ function onName(e: Event): void {
   const v = (e.target as HTMLInputElement).value;
   store.setScenarioName(props.index, v);
 }
+
+// --- Location ---
+function onLocationSelect(e: {
+  location: Location | null;
+  suggestedRegionId: RegionId | null;
+}): void {
+  store.setScenarioLocation(props.index, e.location);
+  if (e.suggestedRegionId) {
+    store.updateScenario(props.index, { regionId: e.suggestedRegionId });
+  }
+}
+
+const numbeoUrl = computed(() => {
+  const loc = scenario.value?.location;
+  return loc ? numbeoUrlFor(loc) : '';
+});
 
 // --- Region / Year ---
 function onRegion(e: Event): void {
@@ -242,7 +257,7 @@ const effectiveTax = computed(() => {
         <input
           class="text-base font-semibold bg-transparent focus:outline-none focus:ring-1 focus:ring-neutral-300 dark:focus:ring-neutral-700 rounded px-1 -mx-1 min-w-0 text-neutral-900 dark:text-neutral-100"
           :value="scenario.name ?? ''"
-          :placeholder="regionLabel"
+          placeholder="Scenario name"
           @input="onName"
           @blur="onName"
         />
@@ -252,9 +267,18 @@ const effectiveTax = computed(() => {
           >primary</span
         >
         <button
+          type="button"
+          class="w-6 h-6 rounded flex items-center justify-center hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-500 dark:text-neutral-400"
+          :aria-label="`Duplicate scenario ${index + 1}`"
+          title="duplicate"
+          @click="store.duplicateScenario(index)"
+        >
+          <FontAwesomeIcon icon="copy" class="text-xs" />
+        </button>
+        <button
           v-if="store.scenarios.length > 1"
           type="button"
-          class="w-6 h-6 rounded hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-500 dark:text-neutral-400"
+          class="w-6 h-6 rounded flex items-center justify-center hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-500 dark:text-neutral-400"
           :aria-label="`Remove scenario ${index + 1}`"
           title="remove"
           @click="store.removeScenario(index)"
@@ -264,12 +288,27 @@ const effectiveTax = computed(() => {
       </div>
     </div>
 
+    <!-- Location (country + city) -->
+    <div class="mb-4">
+      <LocationPicker :location="scenario.location" @select="onLocationSelect" />
+      <a
+        v-if="scenario.location"
+        :href="numbeoUrl"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="mt-2 inline-flex items-center gap-1.5 text-xs text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-neutral-100"
+      >
+        <FontAwesomeIcon icon="arrow-up-right-from-square" class="text-[10px]" />
+        Cost of living on Numbeo
+      </a>
+    </div>
+
     <!-- Region / year selects -->
     <div class="grid grid-cols-2 gap-2 mb-4">
       <label class="block">
         <span
           class="text-[10px] font-mono uppercase tracking-wider text-neutral-500 dark:text-neutral-400"
-          >Region</span
+          >Tax region</span
         >
         <select
           class="mt-1 w-full bg-transparent border border-neutral-200 dark:border-neutral-800 rounded-md px-2 py-1.5 text-sm text-neutral-900 dark:text-neutral-100 focus:outline-none focus:border-neutral-400 dark:focus:border-neutral-600"

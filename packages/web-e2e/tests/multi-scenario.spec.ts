@@ -37,6 +37,34 @@ test.describe('Multi-scenario & crossovers', () => {
     await expect(panes).toHaveCount(3);
   });
 
+  test('duplicating a scenario inserts an identical pane next to it', async ({ page }) => {
+    await seed(page, {
+      scenarios: [
+        ukScenario({ grossMajor: 72_345, name: 'Original' }),
+        usScenario({ name: 'Other' }),
+      ],
+    });
+
+    const panes = page.locator('section[aria-label^="Scenario"]');
+    await expect(panes).toHaveCount(2);
+
+    await page.getByRole('button', { name: 'Duplicate scenario 1' }).click();
+
+    await expect(panes).toHaveCount(3);
+    // The copy is inserted directly after the source, so scenario 2 should
+    // now be the duplicate carrying the original's name and gross.
+    await expect(panes.nth(1).locator('input[placeholder="Scenario name"]')).toHaveValue(
+      'Original',
+    );
+    await expect(panes.nth(1).locator('input[inputmode="decimal"]').first()).toHaveValue('72,345');
+    // Original pane still present, unchanged.
+    await expect(panes.nth(0).locator('input[placeholder="Scenario name"]')).toHaveValue(
+      'Original',
+    );
+    // Third pane is the US scenario pushed down by one.
+    await expect(panes.nth(2).locator('input[placeholder="Scenario name"]')).toHaveValue('Other');
+  });
+
   test('removing down to one scenario disables further removal', async ({ page }) => {
     await seed(page, { scenarios: [ukScenario(), usScenario()] });
 

@@ -16,7 +16,7 @@ import {
 import { moneyFromMajor, moneyToDisplay, type FxConfig } from '../lib/format';
 import { decodeUrlState, encodeUrlState, type ChartRange } from '../lib/urlState';
 import { exampleScenarios, exampleFx, exampleDisplayCurrency } from '../lib/examples';
-import { newExpense, type Expense, type SerializedScenario } from '../schemas';
+import { newExpense, type Expense, type Location, type SerializedScenario } from '../schemas';
 
 const SWEEP_MAX_POINTS = 250;
 
@@ -116,6 +116,19 @@ export const useScenariosStore = defineStore('scenarios', () => {
     });
   }
 
+  function duplicateScenario(index: number): void {
+    const source = scenarios.value[index];
+    if (!source) return;
+    const copy: SerializedScenario = {
+      ...source,
+      ...(source.loan ? { loan: { ...source.loan } } : {}),
+      ...(source.location ? { location: { ...source.location } } : {}),
+      ...(source.expenses ? { expenses: source.expenses.map((e) => ({ ...e })) } : {}),
+    };
+    scenarios.value.splice(index + 1, 0, copy);
+    activeScenarioIndex.value = index + 1;
+  }
+
   function removeScenario(index: number): void {
     if (scenarios.value.length <= 1) return;
     scenarios.value.splice(index, 1);
@@ -153,6 +166,18 @@ export const useScenariosStore = defineStore('scenarios', () => {
       scenarios.value[index] = rest;
     } else {
       scenarios.value[index] = { ...existing, name: trimmed };
+    }
+  }
+
+  function setScenarioLocation(index: number, location: Location | null): void {
+    const existing = scenarios.value[index];
+    if (!existing) return;
+    if (location === null) {
+      const { location: _omit, ...rest } = existing;
+      void _omit;
+      scenarios.value[index] = rest;
+    } else {
+      scenarios.value[index] = { ...existing, location };
     }
   }
 
@@ -335,9 +360,11 @@ export const useScenariosStore = defineStore('scenarios', () => {
     loadFromHash,
     dismissLoadError,
     addScenario,
+    duplicateScenario,
     removeScenario,
     updateScenario,
     setScenarioName,
+    setScenarioLocation,
     setPlan,
     addExpense,
     updateExpense,

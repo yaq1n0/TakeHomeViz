@@ -7,29 +7,37 @@ import './style.css';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   faPlus,
+  faCopy,
   faXmark,
   faCheck,
   faShareNodes,
   faChevronDown,
   faChevronRight,
   faArrowRight,
+  faArrowUpRightFromSquare,
   faRotateLeft,
   faSun,
   faMoon,
+  faCode,
+  faEnvelope,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 library.add(
   faPlus,
+  faCopy,
   faXmark,
   faCheck,
   faShareNodes,
   faChevronDown,
   faChevronRight,
   faArrowRight,
+  faArrowUpRightFromSquare,
   faRotateLeft,
   faSun,
   faMoon,
+  faCode,
+  faEnvelope,
 );
 
 initTheme();

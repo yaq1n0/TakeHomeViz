@@ -173,6 +173,51 @@ describe('setScenarioName', () => {
   });
 });
 
+describe('setScenarioLocation', () => {
+  const loc = { countryCode: 'GB', countryName: 'United Kingdom', cityName: 'London' } as const;
+
+  it('sets location when non-null', () => {
+    const store = useScenariosStore();
+    store.scenarios = [{ regionId: 'uk-eng', year: 2026, grossMajor: 1, currency: 'GBP' }];
+    store.setScenarioLocation(0, { ...loc });
+    expect(store.scenarios[0]!.location).toEqual(loc);
+  });
+
+  it('null removes the location key', () => {
+    const store = useScenariosStore();
+    store.scenarios = [
+      { regionId: 'uk-eng', year: 2026, grossMajor: 1, currency: 'GBP', location: { ...loc } },
+    ];
+    store.setScenarioLocation(0, null);
+    expect(store.scenarios[0]!.location).toBeUndefined();
+    expect('location' in store.scenarios[0]!).toBe(false);
+  });
+
+  it('round-trips through encode/decode', async () => {
+    const store = useScenariosStore();
+    store.scenarios = [
+      { regionId: 'uk-eng', year: 2026, grossMajor: 1, currency: 'GBP', location: { ...loc } },
+    ];
+    const { encodeUrlState: enc } = await import('../lib/urlState');
+    const { decodeUrlState: dec } = await import('../lib/urlState');
+    const hash = enc({
+      scenarios: store.scenarios,
+      fx: undefined,
+      displayCurrency: undefined,
+      chartRange: undefined,
+    });
+    const decoded = dec(hash);
+    expect(decoded?.ok).toBe(true);
+    if (decoded?.ok) expect(decoded.state.scenarios[0]!.location).toEqual(loc);
+  });
+
+  it('no-op for invalid index', () => {
+    const store = useScenariosStore();
+    store.scenarios = [];
+    expect(() => store.setScenarioLocation(0, { ...loc })).not.toThrow();
+  });
+});
+
 describe('setPlan', () => {
   it('null drops loan', () => {
     const store = useScenariosStore();

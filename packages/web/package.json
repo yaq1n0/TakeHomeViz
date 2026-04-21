@@ -19,6 +19,7 @@
     "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
+    "@countrystatecity/countries-browser": "^1.0.0",
     "@fortawesome/fontawesome-svg-core": "^7.2.0",
     "@fortawesome/free-solid-svg-icons": "^7.2.0",
     "@fortawesome/vue-fontawesome": "3",
@@ -32,15 +33,15 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4.2.3",
     "@vitejs/plugin-vue": "^6.0.6",
+    "@vitest/coverage-v8": "^4.1.4",
+    "@vue/test-utils": "^2.4.6",
     "autoprefixer": "^10.5.0",
     "eslint-plugin-vue": "^10.8.0",
+    "jsdom": "^25.0.1",
     "postcss": "^8.5.10",
     "tailwindcss": "^4.2.3",
     "vite": "^8.0.9",
     "vitest": "^4.1.4",
-    "@vitest/coverage-v8": "^4.1.4",
-    "@vue/test-utils": "^2.4.6",
-    "jsdom": "^25.0.1",
     "vue-eslint-parser": "^10.4.0",
     "vue-tsc": "^3.2.7"
   }

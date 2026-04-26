@@ -6,8 +6,8 @@ test.describe('Student loan plans', () => {
   test('enabling uk-plan-2 adds a student loan deduction', async ({ page }) => {
     await seed(page, { scenarios: [ukScenario({ grossMajor: 80_000 })] });
 
-    // Open the "+ add" deductions panel and tick student-loan.
-    await page.getByRole('button', { name: /^add$/ }).first().click();
+    // Open the deductions configure panel and tick student-loan.
+    await page.getByRole('button', { name: /^configure$/ }).first().click();
     const loanCheckbox = page.getByRole('checkbox').nth(1);
     await loanCheckbox.check();
 
@@ -24,7 +24,7 @@ test.describe('Student loan plans', () => {
       scenarios: [ukScenario({ grossMajor: 80_000, loan: { plan: 'uk-plan-2' } })],
     });
 
-    await page.getByRole('button', { name: /^add$/ }).first().click();
+    await page.getByRole('button', { name: /^configure$/ }).first().click();
     const loanCheckbox = page.getByRole('checkbox').nth(1);
     await loanCheckbox.uncheck();
 

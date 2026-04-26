@@ -42,8 +42,11 @@ test.describe('Scenario editing', () => {
     const takeHomeLocator = page.locator('text=Take-home / mo').locator('..');
     const before = await takeHomeLocator.innerText();
 
-    // Open the deductions "+ add" panel and update pension %.
-    await page.getByRole('button', { name: /^add$/ }).first().click();
+    // Open the deductions configure panel and update pension %.
+    await page
+      .getByRole('button', { name: /^configure$/ })
+      .first()
+      .click();
     const pensionPct = page.locator('input[type="number"]').first();
     await pensionPct.fill('15');
     await pensionPct.blur();
